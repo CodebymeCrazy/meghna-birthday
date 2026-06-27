@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Leave a birthday note</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Mulish:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="config.js"></script>
+<style>
+  :root{
+    --night-deep:#160f2e;--night:#241a45;
+    --star:#fdf4e3;--star-gold:#ffd79a;
+    --her-rose:#f4a6c4;--her-rose-soft:#f7c2d8;
+    --text-cream:#f6eee1;--text-soft:#cbbce4;--text-faint:#9d8fc0;
+    --panel:rgba(40,28,74,.55);--panel-line:rgba(244,166,196,.25);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Mulish',system-ui,sans-serif;color:var(--text-cream);min-height:100vh;
+    background:radial-gradient(140% 110% at 50% 4%, #3a2a5e 0%, var(--night) 32%, var(--night-deep) 70%, #0d0820 100%) fixed;
+    display:flex;align-items:center;justify-content:center;padding:32px 22px;overflow-x:hidden;}
+  #starfield{position:fixed;inset:0;z-index:0;pointer-events:none;}
+  .tw{position:absolute;border-radius:50%;background:var(--star);opacity:0;
+    animation:tw var(--d,4s) ease-in-out var(--dl,0s) infinite;box-shadow:0 0 6px rgba(253,244,227,.7);}
+  @keyframes tw{0%,100%{opacity:.15;transform:scale(.8);}50%{opacity:.9;transform:scale(1.1);}}
+  .card{position:relative;z-index:2;width:min(94vw,460px);text-align:center;}
+  .mark{font-family:'Cormorant Garamond',serif;font-size:38px;color:var(--star-gold);
+    text-shadow:0 0 24px rgba(255,215,154,.4);margin-bottom:14px;}
+  .eyebrow{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--text-faint);font-weight:600;}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(30px,8vw,44px);line-height:1.1;margin:8px 0 4px;}
+  .her{font-style:italic;color:var(--her-rose);text-shadow:0 0 26px rgba(244,166,196,.35);}
+  .sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(18px,4.6vw,21px);
+    color:var(--text-soft);max-width:26ch;margin:6px auto 28px;line-height:1.45;}
+  .form{display:flex;flex-direction:column;gap:13px;text-align:left;}
+  input,textarea{font-family:'Mulish',sans-serif;font-size:15px;color:var(--text-cream);
+    background:var(--panel);border:1px solid var(--panel-line);border-radius:12px;padding:14px 16px;
+    width:100%;resize:vertical;outline:none;transition:border-color .2s;}
+  input::placeholder,textarea::placeholder{color:var(--text-faint);}
+  input:focus,textarea:focus{border-color:var(--her-rose);}
+  .send{font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--night-deep);
+    background:linear-gradient(180deg,#ffe6b8,var(--star-gold));border:none;border-radius:999px;
+    padding:14px 30px;cursor:pointer;transition:transform .2s;align-self:center;margin-top:4px;}
+  .send:hover{transform:translateY(-2px);}
+  .note{font-size:12px;color:var(--text-faint);margin-top:14px;line-height:1.5;}
+  .thanks{display:none;}
+  .thanks.show{display:block;animation:rise .7s ease;}
+  @keyframes rise{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+  .thanks .big{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(26px,7vw,36px);
+    color:var(--her-rose);margin-bottom:10px;}
+  .again{margin-top:18px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;
+    color:var(--text-soft);background:transparent;border:1px solid var(--panel-line);border-radius:999px;
+    padding:10px 20px;cursor:pointer;transition:.2s;}
+  .again:hover{border-color:var(--her-rose);color:var(--text-cream);}
+  @media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;}}
+</style>
+</head>
+<body>
+<div id="starfield" aria-hidden="true"></div>
+
+<main class="card">
+  <div id="formView">
+    <div class="mark" aria-hidden="true">✦</div>
+    <p class="eyebrow">a surprise is being made</p>
+    <h1>It's <span class="her" id="hn">her</span>'s birthday</h1>
+    <p class="sub">Leave a little note about her. She'll find them all waiting inside her card.</p>
+    <div class="form">
+      <input id="name" type="text" maxlength="40" placeholder="Your name" />
+      <textarea id="msg" rows="4" maxlength="300" placeholder="Something you love about her, a favourite memory, a birthday wish…"></textarea>
+      <button class="send" id="send">Leave my note</button>
+    </div>
+    <p class="note" id="status"></p>
+  </div>
+
+  <div class="thanks" id="thanks">
+    <div class="mark" aria-hidden="true">✦</div>
+    <div class="big">Thank you.</div>
+    <p class="sub">Your note is tucked away for her. It'll mean the world.</p>
+    <button class="again" id="again">Leave another note</button>
+  </div>
+</main>
+
+<script>
+const CARD = window.CARD || {};
+document.getElementById('hn').textContent = CARD.herName || 'her';
+
+(function(){
+  const f=document.getElementById('starfield');
+  for(let i=0;i<46;i++){const s=document.createElement('span');s.className='tw';
+    const z=Math.random()*2+0.6;s.style.width=z+'px';s.style.height=z+'px';
+    s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';
+    s.style.setProperty('--d',(Math.random()*3+2.5)+'s');s.style.setProperty('--dl',(Math.random()*4)+'s');
+    f.appendChild(s);}
+})();
+
+let backend=null;
+async function init(){
+  if(CARD.firebase){
+    try{
+      const a=await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js');
+      const fs=await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js');
+      const app=a.initializeApp(CARD.firebase);
+      backend={mode:'firebase',fs,db:fs.getFirestore(app)};
+      return;
+    }catch(e){ console.warn(e); }
+  }
+  backend={mode:'local'};
+}
+init();
+
+const status=document.getElementById('status');
+document.getElementById('send').addEventListener('click',async()=>{
+  const name=document.getElementById('name').value.trim();
+  const msg=document.getElementById('msg').value.trim();
+  if(!msg){ document.getElementById('msg').focus(); status.textContent='Write a little something first ✦'; return; }
+  status.textContent='Sending…';
+  const entry={name:name||'A friend', msg, ts:Date.now()};
+  try{
+    if(backend && backend.mode==='firebase'){
+      await backend.fs.addDoc(backend.fs.collection(backend.db,'guestbook'), entry);
+    }else{
+      const k='card_guestbook';
+      const cur=JSON.parse(localStorage.getItem(k)||'[]');
+      cur.unshift(entry); localStorage.setItem(k,JSON.stringify(cur));
+    }
+    document.getElementById('formView').style.display='none';
+    document.getElementById('thanks').classList.add('show');
+  }catch(e){ status.textContent='Hmm, that didn\u2019t send. Try once more?'; }
+});
+document.getElementById('again').addEventListener('click',()=>{
+  document.getElementById('name').value=''; document.getElementById('msg').value='';
+  status.textContent='';
+  document.getElementById('thanks').classList.remove('show');
+  document.getElementById('formView').style.display='block';
+});
+</script>
+</body>
+</html>
