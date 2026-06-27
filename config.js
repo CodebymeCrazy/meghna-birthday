@@ -9,10 +9,13 @@ window.CARD = {
   greeting: "Happy Birthday,",
 
   // your letter — one string per paragraph
+  
   message: [
-    "We met as strangers on a screen, and somehow you became family.",
-    "Thank you for every late-night talk, every time you showed up, and for being exactly the kind of person the world needs more of.",
-    "Wishing you a year as bright as you are."
+    "Hi Meghna, first of all happy birthday. I hope today is good to you, and that you enjoy you day. I wish you all the happiness and success you deserve... bcs you're one of the most amazing person i know..You think soo much about everyone you care about always.... you have such a kind heart.",
+    "I was just realizing how long it's been since we first met online... i guess it was around 2019... and in all that time.. i've watched you grow soo much!! you're a completely different person now... in a good way... i feel so grateful, so blessed, that i got to meet you and call you my sister.. i know we have never met in person.. but still you've cared for me... you've listened.. every time i ranted about something falling apart, or about how fucked up life is.. you never judged me. You're part of my family, Meghna. I want to take such good care of you and am holding onto that promise. I'll keep working at it, so that one day you can feel proud of me.",
+    "I know life hasn't been kind lately, but listen to me.. you have to stay strong okay? Don't you ever let life build a wall btwn you and you dreams. don't let any of it change who you are... i know it feels so hard but you know god is with you, always watching over you.",
+    "i honestly can't imagine anyone being a better sister to me than you silly. Thankyou...for the things you sent me, for all the care nd love. I keep you in my prayers always... and please remember, you never have to suffer alone in anything. I'm here, I've got your back. I might not be that strong right now, but I will be and even now you can still lean on me.",
+    "Just keep being yourself okay? you have grown into such a wonderful woman. Take good care of yourself. I believe in you."
   ],
 
   signature: "— with love, Yash",
