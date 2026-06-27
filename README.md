@@ -17,3 +17,5 @@ Friends leave notes on `sign.html`. Notes are stored in a Firebase Firestore
 Drop all three files onto [Vercel](https://vercel.com). The card is the main
 link; the friends' link is `your-site.vercel.app/sign.html`. The shared
 guestbook and mic-blow feature need the HTTPS link (not a local file).
+
+<!-- deploy pipeline verified -->
