@@ -18,7 +18,7 @@ window.CARD = {
     "I believe in you."
   ],
 
-  signature: "— with love, Yash",
+  signature: "- with love, Yash",
   meta: "your brother · since ",   // the year is added automatically
 
   // 6 stars, left → right. Index 3 is HER star (the bright rose one).
@@ -28,7 +28,7 @@ window.CARD = {
     { when: "2019",                what: "Two strangers on the internet. I had no idea you'd turn into family." },
     { when: "every late night",    what: "You stayed up just so I wouldn't be alone with whatever I was carrying." },           // REAL — a real night?
     { when: "every time i ranted", what: "I'd tell you how falling-apart everything felt, and you never once judged me." },
-    { when: "you",                 what: "The brightest star here. Not a sister by blood — the one I got to choose." },
+    { when: "you",                 what: "The brightest star here. Not a sister by blood the one I got to choose." },
     { when: "the little things",   what: "The things you sent me, the care, the love. I keep you in my prayers, always." },     // REAL — name one thing she sent?
     { when: "today",               what: "You've grown into such a wonderful woman. I'm so proud I know you." }
   ],
@@ -37,18 +37,18 @@ window.CARD = {
   hourlyNotes: [
     "Good morning, birthday girl. It's your day. ✦",
     "Just a reminder between things: you are so deeply loved.",
-    "Whatever you're doing right now — you deserve every bit of the joy.",
+    "Whatever you're doing right now- you deserve every bit of the joy.",
     "Five-ish years of knowing you, and you still amaze me.",
     "Be soft with yourself today. You've earned the rest.",
     "Eat the cake. All of it. No notes. (I mean it.)",
-    "As today ends — thank you for being you, Meghna. Always. ✦"
+    "As today ends.. thank you for being you, Meghna. Always. ✦"
   ],
   unlock: { mode: "fromFirstOpen", intervalMinutes: 60 },
   // (or anchor to a real time:
   //  unlock: { mode:"fixed", startISO:"2026-06-27T00:00:00", intervalMinutes:120 } )
 
   // Shows on screen AFTER she blows out the candle — the emotional peak.
-  finale: "I won't be able to fix all of your problems — but you'll never have to face them alone. I may not have all the answers, but I have all the time in the world for you. No matter what. ✦",
+  finale: "I won't be able to fix all of your problems... but you'll never have to face them alone. I may not have all the answers, but I have all the time in the world for you. No matter what. ✦",
 
   music: { enabled: true, ownTrackUrl: "" },  // paste a direct .mp3 URL to use your own song
 
